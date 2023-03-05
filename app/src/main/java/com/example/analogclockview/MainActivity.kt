@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private val clock: AnalogClockView by lazy { findViewById(R.id.clock) }
+    private val clock: AnalogClockView by lazy { findViewById(R.id.first_clock) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
