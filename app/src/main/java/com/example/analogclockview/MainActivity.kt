@@ -15,6 +15,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun customizeClock() {
-        // TODO: Fill it later
+        clock.run {
+            setWatchfaceColor(R.color.pink)
+            setBorderColor(R.color.blue)
+            setHandsColor(R.color.yellow)
+            setSecondsHandColor(R.color.cyan)
+            setTextColor(R.color.green)
+            setTextSize(32f)
+        }
     }
 }
