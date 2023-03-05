@@ -3,12 +3,15 @@ package com.example.analogclockview
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.Rect
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import java.lang.Integer.min
+import kotlin.math.cos
+import kotlin.math.sin
 
 private const val BORDER_SIZE = 32f
 
@@ -122,6 +125,7 @@ class AnalogClockView(
 
         if (!isInitialized) initialize()
         drawClockShape(canvas)
+        drawNumbers(canvas)
     }
 
     private fun initialize() {
@@ -155,6 +159,24 @@ class AnalogClockView(
         )
 
         paint.reset()
+    }
+
+    private fun drawNumbers(canvas: Canvas) {
+        paint.textSize = textFontSize
+        paint.isFakeBoldText = true
+        paint.color = textColor
+        val rect = Rect()
+        val innerRadius = clockRadius - BORDER_SIZE * 3
+
+        for (hour in 1..12) {
+            val hourString = hour.toString()
+            paint.getTextBounds(hourString, 0, hourString.length, rect)
+            val angle = Math.PI / 6 * (hour - 3)
+            val x = clockWidth.half() + cos(angle) * innerRadius - rect.width().half()
+            val y = clockHeight.half().toDouble() + sin(angle) * innerRadius + rect.height().half()
+
+            canvas.drawText(hourString, x.toFloat(), y.toFloat(), paint)
+        }
     }
 
     private fun getColor(@ColorRes color: Int): Int {
