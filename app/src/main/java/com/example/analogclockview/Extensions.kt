@@ -3,6 +3,10 @@ package com.example.analogclockview
 import android.content.res.Resources
 import android.util.TypedValue
 
+fun Int.half(): Int {
+    return this / 2
+}
+
 fun Resources.makeDp(value: Float): Float {
     return TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP,
