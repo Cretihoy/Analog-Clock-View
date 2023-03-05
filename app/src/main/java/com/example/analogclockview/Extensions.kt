@@ -3,6 +3,10 @@ package com.example.analogclockview
 import android.content.res.Resources
 import android.util.TypedValue
 
+fun Float.half(): Float {
+    return this / 2
+}
+
 fun Int.half(): Int {
     return this / 2
 }

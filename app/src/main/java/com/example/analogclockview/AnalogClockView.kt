@@ -10,6 +10,8 @@ import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import java.lang.Integer.min
 
+private const val BORDER_SIZE = 32f
+
 class AnalogClockView(
     context: Context,
     attributeSet: AttributeSet? = null,
@@ -76,7 +78,6 @@ class AnalogClockView(
             0,
             0
         )
-
         watchfaceColor = getColor(
             typedArray.getResourceId(
                 R.styleable.AnalogClock_watchfaceColor,
@@ -120,6 +121,7 @@ class AnalogClockView(
         super.onDraw(canvas)
 
         if (!isInitialized) initialize()
+        drawClockShape(canvas)
     }
 
     private fun initialize() {
@@ -131,6 +133,28 @@ class AnalogClockView(
 
         paint.isAntiAlias = true
         isInitialized = true
+    }
+
+    private fun drawClockShape(canvas: Canvas) {
+        paint.color = watchfaceColor
+        canvas.drawCircle(
+            clockWidth.half().toFloat(),
+            clockHeight.half().toFloat(),
+            clockRadius.toFloat(),
+            paint
+        )
+
+        paint.strokeWidth = BORDER_SIZE
+        paint.style = Paint.Style.STROKE
+        paint.color = borderColor
+        canvas.drawCircle(
+            clockWidth.half().toFloat(),
+            clockHeight.half().toFloat(),
+            clockRadius - BORDER_SIZE.half(),
+            paint
+        )
+
+        paint.reset()
     }
 
     private fun getColor(@ColorRes color: Int): Int {
