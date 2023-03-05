@@ -36,29 +36,31 @@ class AnalogClockView(
     private var textFontSize = resources.makeSp(18f)
     private val handSize = resources.makeDp(4f)
 
+    // region public methods
     fun setWatchfaceColor(@ColorRes value: Int) {
-        // TODO
+        watchfaceColor = getColor(value)
     }
 
     fun setBorderColor(@ColorRes value: Int) {
-        // TODO
+        borderColor = getColor(value)
     }
 
     fun setHandsColor(@ColorRes value: Int) {
-        // TODO
+        handsColor = getColor(value)
     }
 
     fun setSecondsHandColor(@ColorRes value: Int) {
-        // TODO
+        secondsHandColor = getColor(value)
     }
 
-    fun setTextColor(value: Int) {
-        // TODO
+    fun setTextColor(@ColorRes value: Int) {
+        textColor = getColor(value)
     }
 
     fun setTextSize(value: Float) {
-        // TODO
+        textFontSize = resources.makeSp(value)
     }
+    // endregion
 
     private fun getColor(@ColorRes color: Int): Int {
         return ContextCompat.getColor(context, color)
