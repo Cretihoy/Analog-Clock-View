@@ -1,12 +1,14 @@
 package com.example.analogclockview
 
 import android.content.Context
+import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import java.lang.Integer.min
 
 class AnalogClockView(
     context: Context,
@@ -112,6 +114,23 @@ class AnalogClockView(
             context.resources.displayMetrics
         )
         typedArray.recycle()
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+
+        if (!isInitialized) initialize()
+    }
+
+    private fun initialize() {
+        clockHeight = height
+        clockWidth = width
+
+        val minHeightWidthValue = min(clockHeight, clockWidth)
+        clockRadius = (minHeightWidthValue).half()
+
+        paint.isAntiAlias = true
+        isInitialized = true
     }
 
     private fun getColor(@ColorRes color: Int): Int {
