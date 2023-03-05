@@ -3,6 +3,7 @@ package com.example.analogclockview
 import android.content.Context
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.View
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
@@ -61,6 +62,57 @@ class AnalogClockView(
         textFontSize = resources.makeSp(value)
     }
     // endregion
+
+    init {
+        setUpAttributes(attributeSet)
+    }
+
+    private fun setUpAttributes(attributes: AttributeSet?) {
+        val typedArray = context.theme.obtainStyledAttributes(
+            attributes,
+            R.styleable.AnalogClock,
+            0,
+            0
+        )
+
+        watchfaceColor = getColor(
+            typedArray.getResourceId(
+                R.styleable.AnalogClock_watchfaceColor,
+                R.color.defaultWatchfaceColor
+            )
+        )
+        borderColor = getColor(
+            typedArray.getResourceId(
+                R.styleable.AnalogClock_borderColor,
+                R.color.defaultBorderColor
+            )
+        )
+        handsColor = getColor(
+            typedArray.getResourceId(
+                R.styleable.AnalogClock_handsColor,
+                R.color.defaultHandsColor
+            )
+        )
+        secondsHandColor = getColor(
+            typedArray.getResourceId(
+                R.styleable.AnalogClock_secondsHandColor,
+                R.color.defaultSecondsHandsColor
+            )
+        )
+        textColor = getColor(
+            typedArray.getResourceId(
+                R.styleable.AnalogClock_textColor,
+                R.color.defaultTextColor
+            )
+        )
+
+        textFontSize = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_PX,
+            typedArray.getDimension(R.styleable.AnalogClock_textSize, textFontSize),
+            context.resources.displayMetrics
+        )
+        typedArray.recycle()
+    }
 
     private fun getColor(@ColorRes color: Int): Int {
         return ContextCompat.getColor(context, color)
