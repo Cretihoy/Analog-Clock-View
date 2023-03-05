@@ -10,10 +10,12 @@ import android.view.View
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import java.lang.Integer.min
+import java.util.Calendar
 import kotlin.math.cos
 import kotlin.math.sin
 
 private const val BORDER_SIZE = 32f
+private const val DELAY_MILLS = 500L
 
 class AnalogClockView(
     context: Context,
@@ -126,6 +128,7 @@ class AnalogClockView(
         if (!isInitialized) initialize()
         drawClockShape(canvas)
         drawNumbers(canvas)
+        drawHands(canvas)
     }
 
     private fun initialize() {
@@ -177,6 +180,46 @@ class AnalogClockView(
 
             canvas.drawText(hourString, x.toFloat(), y.toFloat(), paint)
         }
+    }
+
+    private fun drawHands(canvas: Canvas) {
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR)
+
+        drawHandLine(canvas, (hour + calendar.get(Calendar.MINUTE) / 60f) * 5f, HandType.HOUR)
+        drawHandLine(canvas, calendar.get(Calendar.MINUTE).toFloat(), HandType.MINUTE)
+        drawHandLine(canvas, calendar.get(Calendar.SECOND).toFloat(), HandType.SECOND)
+
+        postInvalidateDelayed(DELAY_MILLS)
+        invalidate()
+
+        paint.reset()
+    }
+
+    private fun drawHandLine(
+        canvas: Canvas,
+        value: Float,
+        handType: HandType
+    ) {
+        val angle = Math.PI * value / 30 - Math.PI / 2
+
+        val handRadius = when (handType) {
+            HandType.HOUR -> clockRadius / 2
+            HandType.MINUTE -> clockRadius - clockRadius / 3
+            HandType.SECOND -> clockRadius - clockRadius / 5
+        }
+
+        paint.color = if (handType == HandType.SECOND) secondsHandColor else handsColor
+        paint.strokeWidth = if (handType == HandType.SECOND) handSize else handSize * 2
+        paint.strokeCap = Paint.Cap.ROUND
+
+        canvas.drawLine(
+            clockWidth.half().toFloat(),
+            clockHeight.half().toFloat(),
+            (clockWidth.half() + cos(angle) * handRadius).toFloat(),
+            (clockHeight.half() + sin(angle) * handRadius).toFloat(),
+            paint
+        )
     }
 
     private fun getColor(@ColorRes color: Int): Int {

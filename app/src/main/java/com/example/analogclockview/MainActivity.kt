@@ -16,11 +16,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun customizeClock() {
         clock.run {
-            setWatchfaceColor(R.color.white)
-            setBorderColor(R.color.pink)
-            setHandsColor(R.color.yellow)
-            setSecondsHandColor(R.color.cyan)
-            setTextColor(R.color.black)
+            setWatchfaceColor(R.color.black)
+            setBorderColor(R.color.white)
+            setHandsColor(R.color.blue)
+            setSecondsHandColor(R.color.red)
+            setTextColor(R.color.white)
             setTextSize(32f)
         }
     }
