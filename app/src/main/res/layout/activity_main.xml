@@ -3,10 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <com.example.analogclockview.AnalogClockView
         android:id="@+id/clock"
         android:layout_width="match_parent"
         android:layout_height="350dp" />
+
+    <com.example.analogclockview.AnalogClockView
+        android:id="@+id/second_clock"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:borderColor="@color/black"
+        app:handsColor="@color/grey"
+        app:secondsHandColor="@color/red"
+        app:textColor="@color/grey"
+        app:watchfaceColor="@color/white" />
 </LinearLayout>
