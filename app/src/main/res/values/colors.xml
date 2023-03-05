@@ -14,4 +14,10 @@
     <color name="yellow">#ff0</color>
     <color name="pink">#f0f</color>
     <color name="cyan">#0ff</color>
+
+    <color name="defaultWatchfaceColor">#0ff</color>
+    <color name="defaultBorderColor">#f0f</color>
+    <color name="defaultTextColor">#00f</color>
+    <color name="defaultHandsColor">#0f0</color>
+    <color name="defaultSecondsHandsColor">#f00</color>
 </resources>
